@@ -1,0 +1,23 @@
+# **CS 225 Final Project - Pokémon Type Advantage Graph Visualization**
+
+## **Project Proposal (ccl4-harryc3-devbp2-suyashn2)**
+
+### **Leading Question**
+For this project, we wanted to determine which Pokémon was the strongest and has the greatest advantage over every other Pokémon. We plan to answer this question by first collecting data on various species of Pokémon and identify the relationship between every Pokémon based on their respective type advantages. Through a graphical visualization of this data, we aim to visualize the strength hierarchy of Pokémon and determine not only the strongest Pokémon based on its type advantage against the other Pokémon, but also the groups of independent Pokémon that do not have type relations with any of the other groups of Pokémon.
+
+### **Dataset Acquisition and Processing**
+For this project, we will be using the complete Pokémon dataset from Kaggle which can be found here: https://www.kaggle.com/rounakbanik/pokemon. This dataset contains over 700 Pokémon, so for the purpose of this project, we will start off with the first generation of Pokémon (around 151 species), and then expand to more if we have time. This data is formatted as a CSV file so we will be parsing this data using C++ libraries for CSV. For the graphical structure of our data, each node will represent a Pokémon, and there will be edges between two nodes if there is a non-zero type advantage between two Pokémon. The weights of each edge will be the numerical value of the net type advantage between the two Pokémon. These weights will tell us how much stronger a Pokémon is compared to other Pokémon. We will only be using a certain number of columns from the CSV file. If there is malformed data with errors in a data value that is used in our calculations, we will use a fixed filler value (decided by the team) that will make this malformed data have no scalable impact on the graph. If there are missing values in the columns that have significant impact on our graph related calculations, we will not use that Pokémon since it will provide incorrect information for our goal, and distort the entire graph.
+
+### **Graph Algorithms**
+
+- Graph Visualization: Because we want to determine the strongest relative Pokémon, visualizing the graph is a helpful and clear method to instantly determine which is the strongest. The size of each vertex/Pokémon, and therefore its strength, will be determined by the weighted average of all of its edges. The larger the circle, the greater the strength. Then performing a force-directed graph drawing, the larger nodes should clump together near the center of the drawing and nodes will radiate outwards with decreasing strength for an aesthetically pleasing way to pinpoint the relative strength of each Pokémon. The only input to this will be the weights of the edges for each Pokémon. The output is the drawn graph. The runtime should be around O(n3) where n is the number of Pokémon/vertices.
+
+- Graph Coloring: Another way to examine our data is with a graph coloring algorithm to create a Strength hierarchy for pokemon. Because every Pokémon should ideally have a relationship to one another, if any are colored the same, that means those Pokémon have no direct strength relationship to one another. Therefore, graph coloring should highlight different independent groups of Pokémon that have no relation to one another. Then if we find the relative strength of each group through the weighted average of the group’s outgoing edges, we can create a strength hierarchy of the independent groups of Pokémon. The input to this method should just be the graph and its weighted edges. The output is a colored graph and a hierarchy of the color groups. The runtime should be around O(n2n) where n is the number of Pokémon/vertices.
+
+- BFS Graph Traversal: A BFS traversal on the strength graph centered on a certain vertex will have an input of a certain Pokémon and the strength graph. It will output a list of all of the Pokémon ordered by their strength relative to the starting/first Pokémon. The runtime will be around O(n)where n is the number of Pokémon/vertices.
+
+### **Timeline**
+ - Week 1: Acquire necessary data and build the graph, implement BFS Graph Traversal
+ - Week 2 (Thanksgiving): Start planning for the graph algorithms, as well as the written report/final presentation; if there is extra time, just play Pokémon. 
+- Week 3: Implement Graph Coloring Algorithm and take a look at Graph Visualization
+- Week 4: Finish implementing the Graph Visualization using the necessary C++ libraries and finish final presentation report + video.
